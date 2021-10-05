@@ -9,6 +9,11 @@ import numbers
 import collections
 from itertools import permutations
 
+import warp as warp
+from IPython.core.display import Image
+from PIL.ImageTransform import AffineTransform
+
+
 def _is_numpy_image(img):
     return isinstance(img, np.ndarray) and (img.ndim in {2, 3})
 
