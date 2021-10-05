@@ -11,6 +11,8 @@ import argparse
 import os
 import imageio
 
+#--model_dir ./pretrained/LDRN_KITTI_ResNext101_pretrained_data.pkl --img_dir ./images/pic.png --pretrained KITTI --cuda --gpu_num 0
+
 parser = argparse.ArgumentParser(description='Laplacian Depth Residual Network training on KITTI',formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 # Directory setting 
