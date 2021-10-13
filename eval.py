@@ -44,8 +44,10 @@ parser = argparse.ArgumentParser(description='Laplacian Depth Residual Network t
 parser.add_argument('--models_list_dir', type=str, default='')
 parser.add_argument('--result_dir', type=str, default='')
 parser.add_argument('--model_dir',type=str)
+
 parser.add_argument('--trainfile_kitti', type=str, default = "./datasets/eigen_train_files_with_gt_dense.txt")
-parser.add_argument('--testfile_kitti', type=str, default = "./datasets/eigen_test_files_with_gt_dense.txt")
+parser.add_argument('--testfile_kitti', type=str, default = "../lap_test.txt")
+
 parser.add_argument('--trainfile_nyu', type=str, default = "./datasets/nyudepthv2_train_files_with_gt_dense.txt")
 parser.add_argument('--testfile_nyu', type=str, default = "./datasets/nyudepthv2_test_files_with_gt_dense.txt")
 parser.add_argument('--data_path', type=str, default = "./datasets/KITTI")

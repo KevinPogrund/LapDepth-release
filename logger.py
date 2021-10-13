@@ -10,20 +10,24 @@ class TermLogger(object):
         self.valid_size = valid_size
         self.t = Terminal()
         s = 10
-        e = 1   # epoch bar position
+        e = 1  # epoch bar position
         tr = 3  # train bar position
         ts = 6  # valid bar position
-        h = self.t.height
+        if self.t.height:
+            h = self.t.height
+        else:
+            h=0
+        print("{} {} {}", h, s, e)
 
         for i in range(10):
             print('')
-        self.epoch_bar = progressbar.ProgressBar(maxval=n_epochs, fd=Writer(self.t, (0, h-s+e)))
+        self.epoch_bar = progressbar.ProgressBar(maxval=n_epochs, fd=Writer(self.t, (0, h - s + e)))
 
-        self.train_writer = Writer(self.t, (0, h-s+tr))
-        self.train_bar_writer = Writer(self.t, (0, h-s+tr+1))
+        self.train_writer = Writer(self.t, (0, h - s + tr))
+        self.train_bar_writer = Writer(self.t, (0, h - s + tr + 1))
 
-        self.valid_writer = Writer(self.t, (0, h-s+ts))
-        self.valid_bar_writer = Writer(self.t, (0, h-s+ts+1))
+        self.valid_writer = Writer(self.t, (0, h - s + ts))
+        self.valid_bar_writer = Writer(self.t, (0, h - s + ts + 1))
 
         self.reset_train_bar()
         self.reset_valid_bar()
@@ -68,17 +72,17 @@ class AverageMeter(object):
         self.reset(self.meters)
 
     def reset(self, i):
-        self.val = [0]*i
-        self.avg = [0]*i
-        self.sum = [0]*i
+        self.val = [0] * i
+        self.avg = [0] * i
+        self.sum = [0] * i
         self.count = 0
 
     def update(self, val, n=1):
         if not isinstance(val, list):
             val = [val]
-        assert(len(val) == self.meters)
+        assert (len(val) == self.meters)
         self.count += n
-        for i,v in enumerate(val):
+        for i, v in enumerate(val):
             self.val[i] = v
             self.sum[i] += v * n
             self.avg[i] = self.sum[i] / self.count

@@ -9,7 +9,7 @@ import numbers
 import collections
 from itertools import permutations
 
-import warp as warp
+from skimage.transform import warp as warp
 from IPython.core.display import Image
 from PIL.ImageTransform import AffineTransform
 

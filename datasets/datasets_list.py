@@ -58,14 +58,20 @@ class MyDataset(data.Dataset):
         if (self.train is False):
             divided_file_ = divided_file[0].split('/')
             if self.args.dataset == 'KITTI':
-                filename = divided_file_[1] + '_' + divided_file_[4]
+                # filename = divided_file_[1] + '_' + divided_file_[4]
+
+                filename = divided_file_[-1]
+            elif self.args.dataset == 'test':
+                filename = divided_file_[-1]
             else:
                 filename = divided_file_[0] + '_' + divided_file_[1]
             
             if self.args.dataset == 'KITTI':
                 # Considering missing gt in Eigen split
                 if divided_file[1] != 'None':
-                    gt_file = self.args.data_path + '/data_depth_annotated/' + divided_file[1]
+
+                    # gt_file = self.args.data_path + '/data_depth_annotated/' + divided_file[1]
+                    gt_file = self.args.data_path  + divided_file[1]
                     gt = Image.open(gt_file)
                     if self.use_dense_depth is True:
                         gt_dense_file = self.args.data_path + '/data_depth_annotated/' + divided_file[2]

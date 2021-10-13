@@ -139,7 +139,7 @@ for i, img_file in enumerate(img_list):
     out = out.cpu().detach().numpy().astype(np.uint16)
     out = (out/out.max())*255.0
     result_filename = result_filelist[i]
-    plt.imsave(result_filename ,np.log10(out), cmap='plasma_r')
+    plt.imsave(result_filename ,np.log10(out), cmap='jet')
     if (i+1)%10 == 0:
         print("=>",i+1,"th image is processed..")
 

@@ -17,7 +17,7 @@ import warnings
 warnings.filterwarnings(action='ignore')
 
 def validate(args, val_loader, model, logger, dataset = 'KITTI'):
-    ##global device
+    # global device
     batch_time = AverageMeter()
     if dataset == 'KITTI':
         error_names = ['abs_diff', 'abs_rel', 'sq_rel', 'a1', 'a2', 'a3','rmse','rmse_log']
