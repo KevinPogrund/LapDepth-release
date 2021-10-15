@@ -1,3 +1,5 @@
+import logger
+import trainer
 from option import args, parser
 import csv
 import numpy as np
@@ -167,7 +169,27 @@ if __name__ == '__main__':
     ngpus_per_node = torch.cuda.device_count()
     args.num_workers = args.workers
     args.ngpus_per_node = ngpus_per_node
+     #  ********************************************
+    from torchvision import models
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    model = torch.load("../pretrained/LDRN_KITTI_ResNext101_pretrained_data.pkl", map_location='cuda:0')
+    model = model(pretrained=True)
+    num_ftrs = model.fc.in_features
+
+    model.fc = nn.Linear(num_ftrs)
+    model.to(device)
+
+    critereon = nn.CrossEntropyLoss()
+    optimizer = optim.SGD(model.parameters(), lr = 0.001)
+
+    from torch.optim import lr_scheduler
+
+    step_lr_schedular = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
+
+    model = trainer.train_net(args, model, optimizer, dataset_loader=4, val_loader=10, n_epochs=50, logger=logger)
+
+    #**********************************
     if args.distributed:
         print("==> Distributed Training")
         mp.set_start_method('forkserver')
