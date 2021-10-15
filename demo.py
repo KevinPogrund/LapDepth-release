@@ -77,12 +77,12 @@ elif args.img_folder_dir is not None:
     jpg_img_list = glob.glob(args.img_folder_dir + '/*.jpg')
     img_list = png_img_list + jpg_img_list
     img_list = sorted(img_list)
-    result_folder = './out_' + args.img_folder_dir.split('/')[-1]
+    result_folder = './lap_' + args.img_folder_dir.split('/')[-1]
     if not os.path.exists(result_folder):
         os.makedirs(result_folder)
     result_filelist = []
     for file in img_list:
-        result_filename = result_folder + '/out_' + file.split('/')[-1]
+        result_filename = result_folder + '/' + file.split('/')[-1]
         result_filelist.append(result_filename)
 
 print("=> process..")
