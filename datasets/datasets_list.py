@@ -19,7 +19,8 @@ class MyDataset(data.Dataset):
         self.use_dense_depth = args.use_dense_depth
         if train is True:
             if args.dataset == 'KITTI':
-                self.datafile = args.trainfile_kitti
+                self.datafile = "./train_uns.txt"
+                # self.datafile = args.trainfile_kitti
                 self.angle_range = (-1, 1)
                 self.depth_scale = 256.0
             elif args.dataset == 'NYU':
@@ -74,7 +75,7 @@ class MyDataset(data.Dataset):
                     gt_file = self.args.data_path  + divided_file[1]
                     gt = Image.open(gt_file)
                     if self.use_dense_depth is True:
-                        gt_dense_file = self.args.data_path + '/data_depth_annotated/' + divided_file[2]
+                        gt_dense_file = self.args.data_path + '/' + divided_file[2]
                         gt_dense = Image.open(gt_dense_file)
                 else:
                     pass
@@ -87,15 +88,15 @@ class MyDataset(data.Dataset):
         else:
             angle = np.random.uniform(self.angle_range[0], self.angle_range[1])
             if self.args.dataset == 'KITTI':
-                gt_file = self.args.data_path + '/data_depth_annotated/' + divided_file[1]
+                gt_file = self.args.data_path + '/' + divided_file[1]
                 if self.use_dense_depth is True:
-                    gt_dense_file = self.args.data_path + '/data_depth_annotated/' + divided_file[2]
+                    gt_dense_file = self.args.data_path + '/' + divided_file[1]
             elif self.args.dataset == 'NYU':
                 gt_file = self.args.data_path + '/' + divided_file[1]
                 if self.use_dense_depth is True:
                     gt_dense_file = self.args.data_path + '/' + divided_file[2]
             
-            gt = Image.open(gt_file)            
+            gt = Image.open(gt_file)
             rgb = rgb.rotate(angle, resample=Image.BILINEAR)
             gt = gt.rotate(angle, resample=Image.NEAREST)
             if self.use_dense_depth is True:
@@ -142,7 +143,7 @@ class MyDataset(data.Dataset):
                 gt_dense = np.expand_dims(gt_dense, axis=2)
                 gt_dense = np.clip(gt_dense, 0, self.args.max_depth)
                 gt_dense = gt_dense * (gt.max()/gt_dense.max())
-
+        print(gt)
         rgb, gt, gt_dense = self.transform([rgb] + [gt] + [gt_dense], self.train)
 
         if self.return_filename is True:

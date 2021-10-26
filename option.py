@@ -4,20 +4,20 @@ parser = argparse.ArgumentParser(description='Laplacian Depth Residual Network t
 									formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 # Directory setting
-parser.add_argument('--model_dir',type=str, default = '')
-parser.add_argument('--trainfile_kitti', type=str, default = "./datasets/eigen_train_files_with_gt_dense.txt")
+parser.add_argument('--model_dir',type=str, default = './pretrained/LDRN_KITTI_ResNext101_pretrained_data.pkl')
+parser.add_argument('--trainfile_kitti', type=str, default = "./train_uns.txt")
 parser.add_argument('--testfile_kitti', type=str, default = "./datasets/eigen_test_files_with_gt_dense.txt")
 parser.add_argument('--trainfile_nyu', type=str, default = "./datasets/nyudepthv2_train_files_with_gt_dense.txt")
 parser.add_argument('--testfile_nyu', type=str, default = "./datasets/nyudepthv2_test_files_with_gt_dense.txt")
 parser.add_argument('--data_path', type=str, default = "./datasets/KITTI")
-parser.add_argument('--use_dense_depth', action='store_true', help='using dense depth data for gradient loss')
+parser.add_argument('--use_dense_depth', action='store_false', help='using dense depth data for gradient loss', default=False)
 
 # Optimizer and dataloader setting
 parser.add_argument('-j', '--workers', default=0, type=int, metavar='N', help='number of data loading workers')
 parser.add_argument('--seed', default=0, type=int, help='seed for random functions, and network initialization')
 parser.add_argument('--epochs', default=20, type=int, metavar='N', help='number of total epochs to run')
 parser.add_argument('--epoch_size', default=0, type=int, metavar='N',help='manual epoch size (will match dataset size if not set)')
-parser.add_argument('--batch_size', default=16, type=int, metavar='N', help='mini-batch size')
+parser.add_argument('--batch_size', default=3, type=int, metavar='N', help='mini-batch size')
 
 parser.add_argument('--lr', default=0.0001, type=float, metavar='LR', help='initial learning rate')
 parser.add_argument('--end_lr', default=0.00001, type=float, metavar='LR', help='ending learning rate')

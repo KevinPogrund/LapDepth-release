@@ -150,6 +150,24 @@ def main_worker(gpu, ngpus_per_node, args):
     ##############################################################################################
     logger = None
 
+    ######################################## freeze layers ########################################
+    unfreeze_layers = ['layer3']
+    # a list of the layers that I want to unfreeze
+    for param in Model.module.parameters():
+        param.requires_grad = False  # freeze everything
+
+    for name, child in Model.module.named_children():
+        if 'encoder' not in name:
+            continue
+        for name2, parameters in child.named_parameters():
+            # print(name, name2)  # this prints out the name of the layers
+            # then the layers that I want unfrozen I add to the list unfreeze_layers
+            if any(x in name2 for x in unfreeze_layers):
+                parameters.requires_grad = True  # unfreeze the chosen layers
+
+    for name, param in Model.module.named_parameters():
+        if param.requires_grad:
+            print(name)  # print the layers which have been unfrozen (for checking)
     ####################################### Training part ##########################################
 
     if (args.rank == 0):
@@ -169,27 +187,9 @@ if __name__ == '__main__':
     ngpus_per_node = torch.cuda.device_count()
     args.num_workers = args.workers
     args.ngpus_per_node = ngpus_per_node
+
      #  ********************************************
-    from torchvision import models
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    model = torch.load("../pretrained/LDRN_KITTI_ResNext101_pretrained_data.pkl", map_location='cuda:0')
-    model = model(pretrained=True)
-    num_ftrs = model.fc.in_features
-
-    model.fc = nn.Linear(num_ftrs)
-    model.to(device)
-
-    critereon = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(model.parameters(), lr = 0.001)
-
-    from torch.optim import lr_scheduler
-
-    step_lr_schedular = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
-
-    model = trainer.train_net(args, model, optimizer, dataset_loader=4, val_loader=10, n_epochs=50, logger=logger)
-
-    #**********************************
     if args.distributed:
         print("==> Distributed Training")
         mp.set_start_method('forkserver')

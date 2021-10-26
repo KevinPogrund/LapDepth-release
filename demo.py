@@ -36,7 +36,7 @@ parser.add_argument('--lv6', action='store_true', help='use lv6 Laplacian decode
 
 # GPU setting
 parser.add_argument('--cuda', action='store_true')
-parser.add_argument('--gpu_num', type=str, default = "0,1,2,3", help='force available gpu index')
+parser.add_argument('--gpu_num', type=str, default = "0", help='force available gpu index')
 parser.add_argument('--rank', type=int,   help='node rank for distributed training', default=0)
 
 
