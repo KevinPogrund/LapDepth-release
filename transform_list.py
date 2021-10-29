@@ -124,7 +124,9 @@ class RandomCropNumpy(object):
     def __call__(self, imgs):
         results  = []
         h,w = imgs[0].shape[:2]
-        th, tw = self.size
+        # th, tw = self.size
+        th = 480
+        tw = 640
         if w == tw and h == th:
             return imgs
         elif h == th:
