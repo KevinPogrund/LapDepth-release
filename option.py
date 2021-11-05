@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser(description='Laplacian Depth Residual Network t
 
 # Directory setting
 parser.add_argument('--model_dir',type=str, default = './pretrained/LDRN_KITTI_ResNext101_pretrained_data.pkl')
-parser.add_argument('--trainfile_kitti', type=str, default = "./train_uns.txt")
+parser.add_argument('--trainfile_kitti', type=str, default = "./kitti.txt")
 parser.add_argument('--testfile_kitti', type=str, default = "./datasets/eigen_test_files_with_gt_dense.txt")
 parser.add_argument('--trainfile_nyu', type=str, default = "./datasets/nyudepthv2_train_files_with_gt_dense.txt")
 parser.add_argument('--testfile_nyu', type=str, default = "./datasets/nyudepthv2_test_files_with_gt_dense.txt")
@@ -41,8 +41,8 @@ parser.add_argument('--act', type=str, default = "ReLU")
 parser.add_argument('--img_save', action='store_true', help='result image save')
 parser.add_argument('--cap', default=80.0, type=float, metavar='MaxVal', help='cap setting for kitti eval')
 parser.add_argument('--max_depth', default=80.0, type=float, metavar='MaxVal', help='max value of depth')
-parser.add_argument('--height', type=int, default = 480)
-parser.add_argument('--width', type=int, default = 640)
+parser.add_argument('--height', type=int, default = 1216)
+parser.add_argument('--width', type=int, default = 352)
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true', help='evaluate model on validation set')
 parser.add_argument('--lv6', action='store_true', help='use lv6 Laplacian decoder')
 

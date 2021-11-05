@@ -46,7 +46,7 @@ parser.add_argument('--result_dir', type=str, default='')
 parser.add_argument('--model_dir',type=str)
 
 parser.add_argument('--trainfile_kitti', type=str, default = "./datasets/eigen_train_files_with_gt_dense.txt")
-parser.add_argument('--testfile_kitti', type=str, default = "./eval_uns.txt")
+parser.add_argument('--testfile_kitti', type=str, default = "./kitti.txt")
 
 parser.add_argument('--trainfile_nyu', type=str, default = "./datasets/nyudepthv2_train_files_with_gt_dense.txt")
 parser.add_argument('--testfile_nyu', type=str, default = "./datasets/nyudepthv2_test_files_with_gt_dense.txt")
@@ -71,8 +71,8 @@ parser.add_argument('--val_in_train', action='store_true', help='validation proc
 parser.add_argument('--encoder', type=str, default = "ResNext101")
 parser.add_argument('--norm', type=str, default = "BN")
 parser.add_argument('--act', type=str, default = "ReLU")
-parser.add_argument('--height', type=int, default = 480)
-parser.add_argument('--width', type=int, default = 640)
+parser.add_argument('--height', type=int, default = 352)
+parser.add_argument('--width', type=int, default = 1216)
 parser.add_argument('--max_depth', default=80.0, type=float, metavar='MaxVal', help='max value of depth')
 parser.add_argument('--lv6', action='store_true', help='use lv6 Laplacian decoder')
 

@@ -112,9 +112,9 @@ class MyDataset(data.Dataset):
             h = rgb.height
             w = rgb.width
             bound_left = 0
-            bound_right = 640
+            bound_right = w
             bound_top = 0
-            bound_bottom = 480
+            bound_bottom = h
         elif self.args.dataset == 'NYU':
             if self.train is True:
                 bound_left = 43
@@ -140,7 +140,7 @@ class MyDataset(data.Dataset):
             gt = (np.asarray(gt, dtype=np.float32)) / self.depth_scale
             gt = np.expand_dims(gt, axis=2)
             gt = np.clip(gt, 0, self.args.max_depth)
-            gt = gt * 256.0
+            # gt = gt * 256.0
         if self.use_dense_depth is True:
             if _is_pil_image(gt_dense):
                 gt_dense = gt_dense.crop((bound_left, bound_top, bound_right, bound_bottom))
